@@ -602,7 +602,7 @@
             }
         }
         
-        document.getElementById('requirementForm').addEventListener('submit', function(e) {
+        document.getElementById('requirementForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const formData = new FormData(this);
@@ -618,7 +618,26 @@
             data.features = features.join(',');
             
             console.log('提交數據：', JSON.stringify(data, null, 2));
-            alert('感謝您的填寫！需求已提交。\n\n' + JSON.stringify(data, null, 2));
+            
+            try {
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    alert('感謝您的填寫！我們會盡快與您聯繫。');
+                    window.location.href = '/';
+                } else {
+                    alert('提交失敗，請稍後再試。');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('提交失敗，請稍後再試。');
+            }
         });
     </script>
 </body>

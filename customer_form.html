@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>虛擬團隊建置 - 一鍵開啟您的 AI 公司</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 0;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 60px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-image {
+            max-width: 300px;
+            margin: 20px auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: block;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero h1 {
+            font-size: 42px;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .hero h1 span {
+            background: linear-gradient(120deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero .tagline {
+            font-size: 20px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .hero .highlight {
+            background: rgba(255,255,255,0.2);
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            color: white;
+            font-size: 18px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 40px auto 0;
+            padding: 0 20px;
+        }
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .feature-card .icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        .feature-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid rgba(255,255,255,0.3);
+        }
+        .feature-card h3 {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .feature-card p {
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        /* How it works */
+        .how-it-works {
+            background: rgba(0,0,0,0.3);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .how-it-works h2 {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 40px;
+        }
+        .steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 15px;
+        }
+        .step-text {
+            font-size: 16px;
+        }
+        .step-arrow {
+            color: rgba(255,255,255,0.5);
+            font-size: 24px;
+            margin: 0 10px;
+        }
+        
+        /* CTA */
+        .cta {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .cta h2 {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        .cta p {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 18px 50px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+        
+        /* Form Section */
+        .form-section {
+            padding: 60px 20px;
+            background: #f8f9fa;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        .form-container h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        .form-container .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        /* Form Styles */
+        .section { margin-bottom: 25px; }
+        .section-title {
+            font-size: 16px; font-weight: 600; color: #333;
+            margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid #667eea;
+        }
+        .required { color: #e74c3c; }
+        label { display: block; margin-bottom: 8px; font-weight: 500; color: #444; font-size: 14px; }
+        input[type="text"], input[type="email"], select, textarea {
+            width: 100%; padding: 12px; border: 2px solid #e0e0e0;
+            border-radius: 10px; font-size: 14px; transition: border-color 0.3s;
+        }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #667eea; }
+        
+        /* Service Cards */
+        .service-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .service-card {
+            border: 2px solid #e0e0e0; border-radius: 15px; padding: 20px;
+            cursor: pointer; transition: all 0.3s; text-align: center;
+        }
+        .service-card:hover { border-color: #667eea; }
+        .service-card.selected { border-color: #667eea; background: #f0f0ff; }
+        .service-card .emoji { font-size: 32px; display: block; margin-bottom: 8px; }
+        .service-card .name { font-weight: 600; color: #333; display: block; margin-bottom: 5px; }
+        .service-card .desc { font-size: 12px; color: #666; display: block; line-height: 1.4; }
+        
+        /* Feature Grid */
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .feature-item {
+            display: flex; align-items: center; padding: 12px;
+            border: 2px solid #e0e0e0; border-radius: 10px;
+            cursor: pointer; transition: all 0.3s;
+        }
+        .feature-item:hover { border-color: #667eea; }
+        .feature-item.selected { border-color: #667eea; background: #f0f0ff; }
+        .feature-item input { display: none; }
+        .feature-item .emoji { font-size: 20px; margin-right: 8px; }
+        .feature-item span { font-size: 13px; }
+        
+        /* Buttons */
+        button {
+            width: 100%; padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; border: none; border-radius: 12px;
+            font-size: 18px; font-weight: 600; cursor: pointer;
+            transition: transform 0.2s;
+        }
+        button:hover { transform: translateY(-2px); }
+        .note { font-size: 12px; color: #888; margin-top: 20px; text-align: center; }
+        
+        .hidden { display: none; }
+        
+        /* Footer */
+        footer {
+            background: #1a1a2e;
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>🎯 客製化您的<br><span>一人 AI 公司</span></h1>
+            <p class="tagline">
+                從基礎建設到管理系統，一鍵交付<br>
+                只需要一個 LINE 帳號，就能管理您的虛擬團隊
+            </p>
+            <div class="highlight">
+                🚀 告別傳統公司營運，一個人也能擁有完整團隊
+            </div>
+            
+            <!-- 意向圖 - Hero 圖片 -->
+            <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=350&fit=crop" 
+                 alt="AI Team Concept" 
+                 class="hero-image">
+            
+            <div class="features">
+                <div class="feature-card">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face" 
+                         alt="Virtual Leader" class="feature-img">
+                    <div class="icon">👑</div>
+                    <h3>虛擬 Leader</h3>
+                    <p>專屬 AI 助手，處理大小事務</p>
+                </div>
+                <div class="feature-card">
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=face" 
+                         alt="Analyst" class="feature-img">
+                    <div class="icon">📈</div>
+                    <h3>專業分析師</h3>
+                    <p>數據分析、投資建議</p>
+                </div>
+                <div class="feature-card">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face" 
+                         alt="Risk Controller" class="feature-img">
+                    <div class="icon">🛡️</div>
+                    <h3>嚴格風控師</h3>
+                    <p>紀律督導、風險把關</p>
+                </div>
+                <div class="feature-card">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&crop=face" 
+                         alt="Archivist" class="feature-img">
+                    <div class="icon">🤖</div>
+                    <h3>貼心後勤</h3>
+                    <p>歸檔同步、自動化流程</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How it works -->
+    <section class="how-it-works">
+        <h2>⚡ 三步驟擁有您的 AI 團隊</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-text">填寫需求表單</div>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-text">我們自動建置</div>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-text">用 LINE 開始管理</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA -->
+    <section class="cta">
+        <h2>準備好擁抱 AI 時代了嗎？</h2>
+        <p>填寫表單，讓我們為您打造專屬團隊</p>
+        <a href="#form" class="cta-button">🚀 開始申請</a>
+    </section>
+    
+    <!-- Form Section -->
+    <section class="form-section" id="form">
+        <div class="form-container">
+            <h2>🌹 虛擬團隊建置需求表</h2>
+            <p class="subtitle">填寫您的需求，我們會自動為您建置專屬團隊</p>
+            
+            <form id="requirementForm">
+                <!-- 核心資訊 -->
+                <div class="section">
+                    <div class="section-title">一、核心資訊 <span class="required">*</span></div>
+                    
+                    <label>您的名字/公司名稱</label>
+                    <input type="text" name="teamName" placeholder="例如：我的投資公司" required>
+                    
+                    <label style="margin-top: 15px;">虛擬 Leader 暱稱</label>
+                    <input type="text" name="leaderName" placeholder="例如：小幫手" required>
+                    
+                    <label style="margin-top: 15px;">團隊用途</label>
+                    <input type="text" name="purpose" placeholder="例如：投資分析、行政協助">
+                </div>
+                
+                <!-- 服務等級 -->
+                <div class="section">
+                    <div class="section-title">二、服務等級 <span class="required">*</span></div>
+                    
+                    <div class="service-options">
+                        <label class="service-card" onclick="selectService(this, 'basic')">
+                            <span class="emoji">🌱</span>
+                            <span class="name">基礎版</span>
+                            <span class="desc">單一 AI 助手<br>基本對話功能</span>
+                        </label>
+                        <label class="service-card" onclick="selectService(this, 'professional')">
+                            <span class="emoji">🌿</span>
+                            <span class="name">專業版</span>
+                            <span class="desc">Leader + 1-2 Agents<br>專業分析/風控</span>
+                        </label>
+                        <label class="service-card" onclick="selectService(this, 'flagship')">
+                            <span class="emoji">🌳</span>
+                            <span class="name">旗艦版</span>
+                            <span class="desc">完整四人組<br>全方位服務</span>
+                        </label>
+                        <label class="service-card" onclick="selectService(this, 'custom')">
+                            <span class="emoji">✏️</span>
+                            <span class="name">自訂</span>
+                            <span class="desc">特殊需求<br>聯絡我們討論</span>
+                        </label>
+                    </div>
+                    <input type="hidden" name="serviceLevel" id="serviceLevel" required>
+                </div>
+                
+                <!-- 成員配置 -->
+                <div class="section">
+                    <div class="section-title">三、成員配置 <span class="required">*</span></div>
+                    
+                    <label>選擇成員數量</label>
+                    <select name="memberCount" id="memberCount" onchange="updateMemberOptions()">
+                        <option value="">請選擇...</option>
+                        <option value="0">只要 Leader (1人)</option>
+                        <option value="1">Leader + 1 位成員</option>
+                        <option value="2">Leader + 2 位成員</option>
+                        <option value="3">Leader + 3 位成員（完整）</option>
+                    </select>
+                    
+                    <div id="memberSelections" style="margin-top: 15px;"></div>
+                    <input type="hidden" name="members" id="members">
+                </div>
+                
+                <!-- Leader 模板 -->
+                <div class="section">
+                    <div class="section-title">四、Leader 模板選擇 <span class="required">*</span></div>
+                    
+                    <label>選擇模板</label>
+                    <select name="leaderTemplate" id="leaderTemplate" required>
+                        <option value="">請選擇...</option>
+                        <optgroup label="👩 女性模板">
+                            <option value="girlfriend_20_asia_f">💕 性感迷人的女友 - 20歲/亞洲</option>
+                            <option value="girlfriend_25_asia_f">💕 成熟性感的女友 - 25歲/亞洲</option>
+                            <option value="secretary_25_asia_f">👑 聰明能幹的祕書 - 25歲/亞洲</option>
+                            <option value="secretary_30_mix_f">👑 專業祕書 - 30歲/混血</option>
+                            <option value="analyst_25_asia_f">🧠 專業分析師 - 25歲/亞洲</option>
+                            <option value="analyst_30_western_f">🧠 理性分析師 - 30歲/歐美</option>
+                            <option value="companion_20_asia_f">🌸 貼心小棉襖 - 20歲/亞洲</option>
+                            <option value="companion_22_asia_f">🌸 溫暖陪伴者 - 22歲/亞洲</option>
+                        </optgroup>
+                        <optgroup label="👨 男性模板">
+                            <option value="boyfriend_20_asia_m">💕 性感帥氣的男友 - 20歲/亞洲</option>
+                            <option value="boyfriend_25_asia_m">💕 成熟穩重的男友 - 25歲/亞洲</option>
+                            <option value="assistant_25_asia_m">🎩 貼心管家 - 25歲/亞洲</option>
+                            <option value="assistant_30_western_m">🎩 專業管家 - 30歲/歐美</option>
+                            <option value="expert_28_asia_m">🧑‍💼 商務專家 - 28歲/亞洲</option>
+                            <option value="expert_35_western_m">🧑‍💼 商務顧問 - 35歲/歐美</option>
+                        </optgroup>
+                        <option value="custom">✏️ 自訂需求（聯絡我們）</option>
+                    </select>
+                    
+                    <div style="margin-top: 15px;">
+                        <label>年齡偏好</label>
+                        <select name="agePreference">
+                            <option value="">不拘</option>
+                            <option value="18-22">18-22 歲</option>
+                            <option value="23-25">23-25 歲</option>
+                            <option value="26-30">26-30 歲</option>
+                            <option value="30+">30 歲以上</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- 功能需求 -->
+                <div class="section">
+                    <div class="section-title">五、功能需求</div>
+                    
+                    <div class="feature-grid">
+                        <label class="feature-item" onclick="toggleFeature(this)">
+                            <input type="checkbox" name="features" value="通訊">
+                            <span class="emoji">💬</span>
+                            <span>即時通訊</span>
+                        </label>
+                        <label class="feature-item" onclick="toggleFeature(this)">
+                            <input type="checkbox" name="features" value="生圖">
+                            <span class="emoji">🖼️</span>
+                            <span>生圖服務</span>
+                        </label>
+                        <label class="feature-item" onclick="toggleFeature(this)">
+                            <input type="checkbox" name="features" value="股票">
+                            <span class="emoji">📈</span>
+                            <span>股票分析</span>
+                        </label>
+                        <label class="feature-item" onclick="toggleFeature(this)">
+                            <input type="checkbox" name="features" value="天氣">
+                            <span class="emoji">🌤️</span>
+                            <span>天氣預報</span>
+                        </label>
+                        <label class="feature-item" onclick="toggleFeature(this)">
+                            <input type="checkbox" name="features" value="日誌">
+                            <span class="emoji">📝</span>
+                            <span>日誌記錄</span>
+                        </label>
+                        <label class="feature-item" onclick="toggleFeature(this)">
+                            <input type="checkbox" name="features" value="定時">
+                            <span class="emoji">⏰</span>
+                            <span>定時任務</span>
+                        </label>
+                        <label class="feature-item" onclick="toggleFeature(this)">
+                            <input type="checkbox" name="features" value="其他">
+                            <span class="emoji">💡</span>
+                            <span>其他需求</span>
+                        </label>
+                    </div>
+                    
+                    <div id="otherFeature" class="hidden" style="margin-top: 15px;">
+                        <label>其他需求說明</label>
+                        <textarea name="otherFeatureDesc" rows="2" placeholder="請描述您的其他需求..."></textarea>
+                    </div>
+                </div>
+                
+                <!-- 聯絡資訊 -->
+                <div class="section">
+                    <div class="section-title">六、聯絡資訊 <span class="required">*</span></div>
+                    
+                    <label>姓名/公司</label>
+                    <input type="text" name="contactName" required>
+                    
+                    <label style="margin-top: 15px;">Email</label>
+                    <input type="email" name="email" required>
+                    
+                    <label style="margin-top: 15px;">LINE ID</label>
+                    <input type="text" name="lineId">
+                    
+                    <label style="margin-top: 15px;">備註</label>
+                    <textarea name="note" rows="3" placeholder="任何特殊需求..."></textarea>
+                </div>
+                
+                <button type="submit">🚀 提交需求</button>
+                
+                <p class="note">提交後，我們會盡快與您聯繫確認</p>
+            </form>
+        </div>
+    </section>
+    
+    <footer>
+        <p>🌹 虛擬團隊 - 讓 AI 為您工作</p>
+    </footer>
+
+    <script>
+        let selectedMembers = [];
+        const memberOptions = [
+            { value: 'Analyzer', label: '📈 分析師 - 數據分析、機會挖掘' },
+            { value: 'Defender', label: '🛡️ 風控師 - 風險評估、停損紀律' },
+            { value: 'Archivist', label: '🤖 後勤 - 歸檔同步、資料整理' }
+        ];
+        
+        function selectService(el, value) {
+            document.querySelectorAll('.service-card').forEach(card => card.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('serviceLevel').value = value;
+        }
+        
+        function updateMemberOptions() {
+            const count = parseInt(document.getElementById('memberCount').value) || 0;
+            const container = document.getElementById('memberSelections');
+            container.innerHTML = '';
+            selectedMembers = [];
+            
+            for (let i = 0; i < count; i++) {
+                const select = document.createElement('select');
+                select.name = 'member_' + i;
+                select.style.marginBottom = '10px';
+                select.onchange = function() { updateMembers(); };
+                
+                const defaultOpt = document.createElement('option');
+                defaultOpt.value = '';
+                defaultOpt.textContent = '選擇第 ' + (i+1) + ' 位成員...';
+                select.appendChild(defaultOpt);
+                
+                memberOptions.forEach(opt => {
+                    const option = document.createElement('option');
+                    option.value = opt.value;
+                    option.textContent = opt.label;
+                    select.appendChild(option);
+                });
+                
+                container.appendChild(select);
+            }
+            updateMembers();
+        }
+        
+        function updateMembers() {
+            selectedMembers = [];
+            const selects = document.querySelectorAll('#memberSelections select');
+            selects.forEach(s => {
+                if (s.value) selectedMembers.push(s.value);
+            });
+            document.getElementById('members').value = selectedMembers.join(',');
+        }
+        
+        function toggleFeature(el) {
+            el.classList.toggle('selected');
+            const checkbox = el.querySelector('input');
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.value === '其他') {
+                document.getElementById('otherFeature').classList.toggle('hidden', !checkbox.checked);
+            }
+        }
+        
+        document.getElementById('requirementForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            
+            const features = [];
+            document.querySelectorAll('.feature-item.selected input').forEach(input => {
+                features.push(input.value);
+            });
+            data.features = features.join(',');
+            
+            console.log('提交數據：', JSON.stringify(data, null, 2));
+            alert('感謝您的填寫！需求已提交。\n\n' + JSON.stringify(data, null, 2));
+        });
+    </script>
+</body>
+</html>

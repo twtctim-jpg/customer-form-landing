@@ -12,6 +12,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'customer_form.html'));
 });
 
-app.listen(PORT, () => {
+// Listen on all network interfaces (0.0.0.0) - Required for Zeabur
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
 });
